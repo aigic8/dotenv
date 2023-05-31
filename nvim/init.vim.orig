@@ -1,0 +1,69 @@
+call plug#begin()
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'embark-theme/vim', { 'as': 'embark', 'branch': 'main' }
+Plug 'vim-airline/vim-airline'
+Plug 'olimorris/onedarkpro.nvim'
+Plug 'arcticicestudio/nord-vim'
+Plug 'sainnhe/sonokai'
+
+Plug 'junegunn/fzf' 
+Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-rooter'
+Plug 'airblade/vim-gitgutter'
+Plug 'luochen1990/rainbow'
+
+Plug 'ayu-theme/ayu-vim'
+
+Plug 'sheerun/vim-polyglot'
+
+call plug#end()
+
+" Color scheme
+set termguicolors
+" let ayucolor="mirage"
+"
+" colorscheme molokai
+" let g:molokai_original=1
+" let g:rehash256 = 1
+
+let g:sonokai_style = 'default'
+let g:sonokai_better_performance = 1
+colorscheme sonokai
+
+" Default Clipboard is system clipboard
+set clipboard=unnamedplus
+
+" Line Numbers
+set number relativenumber
+set cursorline
+
+" Tabsize
+set tabstop=2
+set shiftwidth=2
+set expandtab
+
+let mapleader=","
+
+" Key bindings
+map <C-p> :Files<CR>
+
+" Turn of arrow keys
+noremap <Up> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+noremap <Down> <Nop>
+
+" coc config
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+nmap <F2> <Plug>(coc-rename)
+nmap <silent> gd <Plug>(coc-definition)
+nnoremap <silent> <C-space> :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  endif
+endfunction
+
+let g:rainbow_active = 1 

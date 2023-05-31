@@ -1,0 +1,4 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": ["rs", "go", "ts", "tsx"],
+  "rust-analyzer.enable": true
+}
