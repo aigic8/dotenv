@@ -23,7 +23,7 @@ return require('packer').startup(function(use)
 	use { 'prettier/vim-prettier', run = [[npm install]] }
 	use { 'folke/todo-comments.nvim', requires = {{'nvim-lua/plenary.nvim'}}}
 	-- use 'fatih/vim-go'
-	use { 'neoclide/coc.nvim', branch = 'release', run = [[:CocInstall coc-go coc-tsserver]] }
+	use { 'neoclide/coc.nvim', branch = 'release', run = [[:CocInstall coc-go coc-tsserver coc-rust-analyzer]] }
 	-- 'numToStr/Comment.nvim' TODO
 	use { 'wakatime/vim-wakatime' }
 	use { 'lewis6991/gitsigns.nvim' }

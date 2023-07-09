@@ -1,3 +1,4 @@
+-- IMPORTANT: install ripgrep https://github.com/BurntSushi/ripgrep#installation , it makes todo comments search functionality work
 
 -- set leader key as space
 vim.g.mapleader = ' '
