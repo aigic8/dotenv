@@ -1,6 +1,6 @@
 
 require('nvim-treesitter.configs').setup {
-	ensure_installed = {'go', 'rust', 'lua', 'javascript', 'jsonc', 'html', 'vue', 'typescript', 'svelte', 'css', 'sql' },
+	ensure_installed = {'go', 'rust', 'lua', 'javascript', 'jsonc', 'html', 'vue', 'typescript', 'svelte', 'css', 'sql', 'prisma' },
 	highlight = {
 		enable = true,
 		disable = function(lang, buf)
