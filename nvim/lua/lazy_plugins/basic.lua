@@ -32,7 +32,6 @@ local function treesitter_config()
 	configs.setup({
 		ensure_installed = { "lua", "rust", "go", "typescript", "javascript", "sql", "json", "yaml", "toml" },
 		sync_install = false,
-		auto_install = false,
 		ignore_install = {},
 		highlight = {
 			enable = true,
@@ -60,6 +59,10 @@ local function workspaces_config()
 	vim.keymap.set("n", "<leader>wl", ":Telescope workspaces<CR>")
 end
 
+local function git_signs_config()
+	require("gitsigns").setup()
+end
+
 return {
 	{
 		"nvim-telescope/telescope.nvim",
@@ -72,4 +75,5 @@ return {
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", config = treesitter_config },
 	{ "mofiqul/vscode.nvim", config = vscode_theme_config },
 	{ "natecraddock/workspaces.nvim", dependencies = { "nvim-telescope/telescope.nvim" }, config = workspaces_config },
+	{ "lewis6991/gitsigns.nvim", config = git_signs_config },
 }
