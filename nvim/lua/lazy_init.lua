@@ -11,7 +11,6 @@ local function init_lazy()
 		})
 	end
 	vim.opt.rtp:prepend(lazypath)
-	print("downloaded lazy")
 end
 
 local function setup_lazy()

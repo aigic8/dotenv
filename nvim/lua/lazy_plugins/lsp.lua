@@ -12,29 +12,21 @@ local function config_mason()
 	})
 end
 
-local function config_go_format_on_save()
-	-- source: https://github.com/golang/tools/blob/master/gopls/doc/vim.md#neovim-imports
-	vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-		pattern = "*.go",
-		callback = function()
-			local params = vim.lsp.util.make_range_params()
-			params.context = { only = { "source.organizeImports" } }
-			-- buf_request_sync defaults to a 1000ms timeout. Depending on your
-			-- machine and codebase, you may want longer. Add an additional
-			-- argument after params if you find that you have to write the file
-			-- twice for changes to be saved.
-			-- E.g., vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
-			local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
-			for cid, res in pairs(result or {}) do
-				for _, r in pairs(res.result or {}) do
-					if r.edit then
-						local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
-						vim.lsp.util.apply_workspace_edit(r.edit, enc)
-					end
-				end
-			end
-			vim.lsp.buf.format({ async = false })
-		end,
+local function config_nvim_cmp()
+	local cmp = require("cmp")
+
+	cmp.setup({
+		sources = {
+			{ name = "nvim_lsp" },
+		},
+		mapping = {
+			["<CR>"] = cmp.mapping.confirm({ select = false }),
+			["<Up>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
+			["<Down>"] = cmp.mapping.select_next_item({ behavior = "select" }),
+			["<C-Space>"] = cmp.mapping(function()
+				cmp.complete()
+			end),
+		},
 	})
 end
 
@@ -46,28 +38,19 @@ local function config_lsp_zero()
 	lsp_zero.on_attach(function(_, bufnr)
 		local opts = { buffer = bufnr, remap = false }
 		local buf = vim.lsp.buf
-		-- see :help lsp-zero-keybindings
-		-- to learn the available actions
+		local builtin = require("telescope.builtin")
 
 		lsp_zero.default_keymaps({ buffer = bufnr })
 		vim.keymap.set("n", "gd", buf.definition, opts)
 		vim.keymap.set("n", "<leader>r", buf.rename, opts)
 		vim.keymap.set("n", "<leader>c", buf.references, opts)
-		vim.keymap.set("n", "<C-.>", buf.signature_help, opts)
+		vim.keymap.set("n", "<C-S-o>", function()
+			builtin.lsp_document_symbols({ symbols = { "function", "method" } })
+		end)
 	end)
 
-	--	lsp_zero.format_on_save({
-	--		servers = {
-	--			['rust_analyzer'] = { 'rust' },
-	--			['tsserver'] = { 'typescript', 'javascript' },
-	--			['ruff'] = { 'python' },
-	--			['gopls'] = { 'go' },
-	--			['lua_ls'] = { 'lua' },
-	--		}
-	--	})
-
 	config_mason()
-	-- config_go_format_on_save()
+	config_nvim_cmp()
 end
 
 return {
@@ -81,6 +64,7 @@ return {
 			"hrsh7th/nvim-cmp",
 			"hrsh7th/cmp-nvim-lsp",
 			"L3MON4D3/LuaSnip",
+			"nvim-treesitter/nvim-treesitter",
 		},
 		config = config_lsp_zero,
 	},
