@@ -3,7 +3,16 @@ local function config_mason()
 	local lspconfig = require("lspconfig")
 	require("mason").setup({})
 	require("mason-lspconfig").setup({
-		ensure_installed = { "lua_ls", "gopls", "rust_analyzer", "sqls", "tailwindcss", "tsserver", "pyright", "ruff" },
+		ensure_installed = {
+			"lua_ls",
+			"rust_analyzer",
+			"tailwindcss",
+			"tsserver",
+			"pyright",
+			"ruff",
+			"jsonls",
+			"zls",
+		},
 		handlers = {
 			function(server_name)
 				lspconfig[server_name].setup({})

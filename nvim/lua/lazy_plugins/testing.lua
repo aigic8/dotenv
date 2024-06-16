@@ -16,6 +16,7 @@ local function neotest_config()
 		-- your neotest config here
 		adapters = {
 			require("neotest-go"),
+			require("neotest-rust"),
 		},
 	})
 
@@ -40,6 +41,7 @@ return {
 			"nvim-treesitter/nvim-treesitter",
 			-- adapters
 			"nvim-neotest/neotest-go",
+			"rouge8/neotest-rust",
 		},
 		config = neotest_config,
 	},
