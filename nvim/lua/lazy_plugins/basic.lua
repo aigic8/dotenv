@@ -76,4 +76,5 @@ return {
 	{ "mofiqul/vscode.nvim", config = vscode_theme_config },
 	{ "natecraddock/workspaces.nvim", dependencies = { "nvim-telescope/telescope.nvim" }, config = workspaces_config },
 	{ "lewis6991/gitsigns.nvim", config = git_signs_config },
+	{ "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" }, opts = {} },
 }
