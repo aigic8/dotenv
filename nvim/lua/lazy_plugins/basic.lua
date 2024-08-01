@@ -5,6 +5,9 @@ local function harpoon_config()
 	vim.keymap.set("n", "<leader>ha", mark.add_file)
 	vim.keymap.set("n", "<leader>hl", ui.toggle_quick_menu)
 	vim.keymap.set("n", "<leader>hn", ui.nav_next)
+	vim.keymap.set("n", "<leader>ha", mark.add_file)
+	vim.keymap.set("n", "<leader>hl", ui.toggle_quick_menu)
+	vim.keymap.set("n", "<leader>hn", ui.nav_next)
 end
 
 local function vim_fugitive_config()
@@ -24,6 +27,17 @@ end
 local function vscode_theme_config()
 	vim.cmd.colorscheme("vscode")
 	vim.o.background = "dark"
+end
+
+local function kanagawa_theme_config()
+	-- options: kanagawa-wave, kanagawa-dragon, kanagawa-lotus
+	vim.cmd.colorscheme("kanagawa-dragon")
+end
+
+local function tokio_night_theme_config()
+	vim.cmd.colorscheme("tokyonight")
+	vim.o.background = "dark"
+	vim.cmd("set termguicolors")
 end
 
 local function treesitter_config()
@@ -63,6 +77,15 @@ local function git_signs_config()
 	require("gitsigns").setup()
 end
 
+local function todo_comments_config()
+	require("todo-comments").setup({})
+	vim.keymap.set("n", "<leader>dl", ":TodoTelescope keywords=TODO,FIX<CR>")
+end
+
+local function colorizer_config()
+	require("colorizer").setup()
+end
+
 return {
 	{
 		"nvim-telescope/telescope.nvim",
@@ -70,11 +93,26 @@ return {
 		config = telescope_config,
 		tag = "0.1.6",
 	},
-	{ "theprimeagen/harpoon",            dependencies = { "nvim-lua/plenary.nvim" },         config = harpoon_config },
-	{ "tpope/vim-fugitive",              config = vim_fugitive_config },
-	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate",                                config = treesitter_config },
-	{ "mofiqul/vscode.nvim",             config = vscode_theme_config },
-	{ "natecraddock/workspaces.nvim",    dependencies = { "nvim-telescope/telescope.nvim" }, config = workspaces_config },
-	{ "lewis6991/gitsigns.nvim",         config = git_signs_config },
-	{ "folke/todo-comments.nvim",        dependencies = { "nvim-lua/plenary.nvim" },         opts = {} },
+	{ "theprimeagen/harpoon", dependencies = { "nvim-lua/plenary.nvim" }, config = harpoon_config },
+	{ "tpope/vim-fugitive", config = vim_fugitive_config },
+	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", config = treesitter_config },
+	{ "natecraddock/workspaces.nvim", dependencies = { "nvim-telescope/telescope.nvim" }, config = workspaces_config },
+	{ "lewis6991/gitsigns.nvim", config = git_signs_config },
+	{
+
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+		opts = {},
+		config = todo_comments_config,
+	},
+	{ "rebelot/kanagawa.nvim", config = kanagawa_theme_config },
+	{ "norcalli/nvim-colorizer.lua", config = colorizer_config },
+	-- { "mofiqul/vscode.nvim", config = vscode_theme_config },
+	-- {
+	-- 	"folke/tokyonight.nvim",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	opts = {},
+	-- 	config = tokio_night_theme_config,
+	-- },
 }
