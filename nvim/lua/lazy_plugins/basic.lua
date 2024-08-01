@@ -2,9 +2,9 @@ local function harpoon_config()
 	local mark = require("harpoon.mark")
 	local ui = require("harpoon.ui")
 
-	vim.keymap.set("n", "<leader>a", mark.add_file)
-	vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
-	vim.keymap.set("n", "<C-n>", ui.nav_next)
+	vim.keymap.set("n", "<leader>ha", mark.add_file)
+	vim.keymap.set("n", "<leader>hl", ui.toggle_quick_menu)
+	vim.keymap.set("n", "<leader>hn", ui.nav_next)
 end
 
 local function vim_fugitive_config()
@@ -70,11 +70,11 @@ return {
 		config = telescope_config,
 		tag = "0.1.6",
 	},
-	{ "theprimeagen/harpoon", dependencies = { "nvim-lua/plenary.nvim" }, config = harpoon_config },
-	{ "tpope/vim-fugitive", config = vim_fugitive_config },
-	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", config = treesitter_config },
-	{ "mofiqul/vscode.nvim", config = vscode_theme_config },
-	{ "natecraddock/workspaces.nvim", dependencies = { "nvim-telescope/telescope.nvim" }, config = workspaces_config },
-	{ "lewis6991/gitsigns.nvim", config = git_signs_config },
-	{ "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" }, opts = {} },
+	{ "theprimeagen/harpoon",            dependencies = { "nvim-lua/plenary.nvim" },         config = harpoon_config },
+	{ "tpope/vim-fugitive",              config = vim_fugitive_config },
+	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate",                                config = treesitter_config },
+	{ "mofiqul/vscode.nvim",             config = vscode_theme_config },
+	{ "natecraddock/workspaces.nvim",    dependencies = { "nvim-telescope/telescope.nvim" }, config = workspaces_config },
+	{ "lewis6991/gitsigns.nvim",         config = git_signs_config },
+	{ "folke/todo-comments.nvim",        dependencies = { "nvim-lua/plenary.nvim" },         opts = {} },
 }
