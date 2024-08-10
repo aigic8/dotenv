@@ -44,7 +44,19 @@ local function treesitter_config()
 	local configs = require("nvim-treesitter.configs")
 
 	configs.setup({
-		ensure_installed = { "lua", "rust", "go", "typescript", "javascript", "sql", "json", "yaml", "toml", "http" },
+		ensure_installed = {
+			"lua",
+			"rust",
+			"go",
+			"typescript",
+			"javascript",
+			"sql",
+			"json",
+			"yaml",
+			"toml",
+			"http",
+			"html",
+		},
 		sync_install = false,
 		ignore_install = {},
 		highlight = {
@@ -110,6 +122,10 @@ local function kulala_config()
 	vim.api.nvim_set_keymap("n", "<leader>kr", ":lua require('kulala').run()<CR>", { noremap = true, silent = true })
 end
 
+local function markview_config()
+	require("markview").setup()
+end
+
 return {
 	{
 		"nvim-telescope/telescope.nvim",
@@ -132,14 +148,18 @@ return {
 	{ "rebelot/kanagawa.nvim", config = kanagawa_theme_config },
 	{ "norcalli/nvim-colorizer.lua", config = colorizer_config },
 	{
-		"iamcco/markdown-preview.nvim",
-		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-		ft = { "markdown" },
-		build = "cd app && pnpm install",
-	},
-	{
 		"mistweaverco/kulala.nvim",
 		config = kulala_config,
+	},
+	{
+		"OXY2DEV/markview.nvim",
+		lazy = false, -- Recommended
+		-- ft = "markdown" -- If you decide to lazy-load anyway
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons",
+		},
+		config = markview_config,
 	},
 	-- { "mofiqul/vscode.nvim", config = vscode_theme_config },
 	-- {
