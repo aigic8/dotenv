@@ -44,7 +44,7 @@ local function treesitter_config()
 	local configs = require("nvim-treesitter.configs")
 
 	configs.setup({
-		ensure_installed = { "lua", "rust", "go", "typescript", "javascript", "sql", "json", "yaml", "toml" },
+		ensure_installed = { "lua", "rust", "go", "typescript", "javascript", "sql", "json", "yaml", "toml", "http" },
 		sync_install = false,
 		ignore_install = {},
 		highlight = {
@@ -86,6 +86,30 @@ local function colorizer_config()
 	require("colorizer").setup()
 end
 
+local function kulala_config()
+	require("kulala").setup()
+
+	vim.filetype.add({
+		extension = {
+			["rest"] = "http",
+		},
+	})
+
+	vim.api.nvim_set_keymap(
+		"n",
+		"<leader>kp",
+		":lua require('kulala').jump_prev()<CR>",
+		{ noremap = true, silent = true }
+	)
+	vim.api.nvim_set_keymap(
+		"n",
+		"<leader>kn",
+		":lua require('kulala').jump_next()<CR>",
+		{ noremap = true, silent = true }
+	)
+	vim.api.nvim_set_keymap("n", "<leader>kr", ":lua require('kulala').run()<CR>", { noremap = true, silent = true })
+end
+
 return {
 	{
 		"nvim-telescope/telescope.nvim",
@@ -108,13 +132,14 @@ return {
 	{ "rebelot/kanagawa.nvim", config = kanagawa_theme_config },
 	{ "norcalli/nvim-colorizer.lua", config = colorizer_config },
 	{
-		"MeanderingProgrammer/markdown.nvim",
-		main = "render-markdown",
-		opts = {},
-		name = "render-markdown", -- Only needed if you have another plugin named markdown.nvim
-		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite
-		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
-		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		ft = { "markdown" },
+		build = "cd app && pnpm install",
+	},
+	{
+		"mistweaverco/kulala.nvim",
+		config = kulala_config,
 	},
 	-- { "mofiqul/vscode.nvim", config = vscode_theme_config },
 	-- {
