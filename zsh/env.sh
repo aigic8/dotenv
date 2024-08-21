@@ -20,12 +20,17 @@ if [ -d "$GO_BIN" ]; then
 	export PATH=$PATH:/usr/local/go/bin
 fi
 
-# aliases and functions
-alias open="xdg-open"
-alias tmux="TERM=alacritty-direct tmux"
+# setup nekoray as vpn
+set_neko() {
+	export http_proxy=127.0.0.1:2080
+	export HTTP_PROXY=127.0.0.1:2080
+	export https_proxy=127.0.0.1:2080
+	export HTTPS_PROXY=127.0.0.1:2080
+}
 
 ff() {
 	DIR_PATH="$(find $HOME/main $HOME/lab -maxdepth 1 -and -type d | fzf)"
 	BASE_NAME="$(basename $DIR_PATH)"
 	tmux new -c $DIR_PATH -s $BASE_NAME
 }
+

@@ -31,7 +31,7 @@ end
 
 local function kanagawa_theme_config()
 	-- options: kanagawa-wave, kanagawa-dragon, kanagawa-lotus
-	vim.cmd.colorscheme("kanagawa-dragon")
+	vim.cmd.colorscheme("kanagawa-wave")
 end
 
 local function tokio_night_theme_config()
@@ -126,6 +126,10 @@ local function markview_config()
 	require("markview").setup()
 end
 
+local function trouble_config()
+	require("trouble").setup()
+end
+
 return {
 	{
 		"nvim-telescope/telescope.nvim",
@@ -160,6 +164,31 @@ return {
 			"nvim-tree/nvim-web-devicons",
 		},
 		config = markview_config,
+	},
+	{
+		"folke/trouble.nvim",
+		cmd = "Trouble",
+		options = {},
+		keys = {
+			["]d"] = "next",
+			["[d"] = "prev",
+			{
+				"<leader>df",
+				"<cmd>Trouble diagnostics toggle<cr>",
+				desc = "Diagnostics (Trouble)",
+			},
+			{
+				"<leader>dl",
+				"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+				desc = "Buffer Diagnostics (Trouble)",
+			},
+			{
+				"<leader>ds",
+				"<cmd>Trouble qflist toggle<cr>",
+				desc = "Quickfix List (Trouble)",
+			},
+		},
+		config = trouble_config,
 	},
 	-- { "mofiqul/vscode.nvim", config = vscode_theme_config },
 	-- {
