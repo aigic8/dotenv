@@ -29,8 +29,19 @@ set_neko() {
 }
 
 ff() {
-	DIR_PATH="$(find $HOME/main $HOME/lab -maxdepth 1 -and -type d | fzf)"
-	BASE_NAME="$(basename $DIR_PATH)"
-	tmux new -c $DIR_PATH -s $BASE_NAME
+	local dir_path="$(find $HOME/main $HOME/lab -maxdepth 1 -and -type d | fzf)"
+	local path_basename="$(basename $dir_path)"
+	tmux new -c $dir_path -s $path_basename
+}
+
+alias vv="source ./venv/bin/activate"
+
+py_proj() {
+	local dest_path=$1
+	mkdir $dest_path
+	cd $dest_path 
+	python -m venv venv
+	source venv/bin/activate
+	nvim .
 }
 
