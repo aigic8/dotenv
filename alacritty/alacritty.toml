@@ -1,21 +1,21 @@
-import = ["~/.config/alacritty/themes/one_dark.toml"]
 
 [env]
 TERM = "alacritty-direct"
-HELLO = "world"
-
-[font]
-size = 8.5
-
-[font.normal]
-family = "Geist Mono"
-
-[font.offset]
-y = 14
 
 [window]
-startup_mode = "Fullscreen"
+opacity = 0.98
 
-[window.padding]
-x = 8
-y = 8
+
+[font]
+normal = { family = "JetBrainsMono Nerd Font Mono", style = "Regular" }
+offset = { x = 0, y = 8 }
+size = 11
+
+[general]
+import = [
+"~/.config/alacritty/catppuccin-mocha.toml"
+]
+
+[keyboard]
+bindings = [{ key = "F11", action = "ToggleFullscreen" }]
+

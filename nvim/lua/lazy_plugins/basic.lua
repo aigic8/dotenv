@@ -34,6 +34,11 @@ local function kanagawa_theme_config()
 	vim.cmd.colorscheme("kanagawa-wave")
 end
 
+local function catppuccin_theme_config()
+	-- options: catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
+	vim.cmd.colorscheme("catppuccin-mocha")
+end
+
 local function tokio_night_theme_config()
 	vim.cmd.colorscheme("tokyonight")
 	vim.o.background = "dark"
@@ -56,6 +61,8 @@ local function treesitter_config()
 			"toml",
 			"http",
 			"html",
+			"svelte",
+			"css",
 		},
 		sync_install = false,
 		ignore_install = {},
@@ -91,7 +98,7 @@ end
 
 local function todo_comments_config()
 	require("todo-comments").setup({})
-	vim.keymap.set("n", "<leader>dl", ":TodoTelescope keywords=TODO,FIX<CR>")
+	vim.keymap.set("n", "<leader>cl", ":TodoTelescope keywords=TODO,FIXME<CR>")
 end
 
 local function colorizer_config()
@@ -143,13 +150,13 @@ return {
 	{ "natecraddock/workspaces.nvim", dependencies = { "nvim-telescope/telescope.nvim" }, config = workspaces_config },
 	{ "lewis6991/gitsigns.nvim", config = git_signs_config },
 	{
-
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
 		opts = {},
 		config = todo_comments_config,
 	},
-	{ "rebelot/kanagawa.nvim", config = kanagawa_theme_config },
+	-- { "rebelot/kanagawa.nvim", config = kanagawa_theme_config },
+	{ "catppuccin/nvim", name = "catppuccin", priority = 1000, config = catppuccin_theme_config },
 	{ "norcalli/nvim-colorizer.lua", config = colorizer_config },
 	{
 		"mistweaverco/kulala.nvim",
@@ -190,6 +197,7 @@ return {
 		},
 		config = trouble_config,
 	},
+	{ "mawkler/refjump.nvim", opts = {} },
 	-- { "mofiqul/vscode.nvim", config = vscode_theme_config },
 	-- {
 	-- 	"folke/tokyonight.nvim",

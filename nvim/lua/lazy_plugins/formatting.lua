@@ -7,7 +7,7 @@ local function conform_config()
 			typescript = { "prettierd" },
 			javascriptreact = { "prettierd" },
 			typescriptreact = { "prettierd" },
-			markdown = { "prettierd" },
+			markdown = { "prettier" },
 			rust = { "rustfmt" },
 			python = { "ruff_format" },
 		},

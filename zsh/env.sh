@@ -1,4 +1,5 @@
 
+alias k=kubectl
 # fnm
 FNM_PATH="$HOME/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
