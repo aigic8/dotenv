@@ -4,12 +4,19 @@ local function conform_config()
 			lua = { "stylua" },
 			go = { "goimports", "gofmt" },
 			markdown = { "prettier" },
+			javascript = { "prettier" },
+			json = { "prettier" },
+			typescript = { "biome" },
 			tex = { "tex-fmt" },
+			python = { "ruff_organize_imports", "ruff_format" },
 		},
 
 		formatters = {
 			mdformat = {
 				append_args = { "--wrap", "80" },
+			},
+			prettier = {
+				append_args = { "--no-semi", "--single-quote", "--trailing-comma", "all", "--prose-wrap", "always" },
 			},
 		},
 
@@ -19,12 +26,32 @@ local function conform_config()
 			lsp_format = "fallback",
 		},
 	})
+
+	vim.keymap.set("n", "<leader>f", function()
+		require("conform").format({ async = true, lsp_fallback = true })
+	end, { desc = "Format file" })
 end
 
 local function setup_lsps()
 	-- 	-- source: https://xnacly.me/posts/2025/neovim-lsp-changes/
 	local lsps = {
 		{ "gopls", { filetypes = { "go" }, cmd = { "gopls" } } },
+		{
+			"python",
+			{
+				filetypes = { "python" },
+				cmd = { "basedpyright-langserver", "--stdio" },
+				root_markers = {
+					"pyrightconfig.json",
+					"pyproject.toml",
+					"setup.py",
+					"setup.cfg",
+					"requirements.txt",
+					"Pipfile",
+					".git",
+				},
+			},
+		},
 		{
 			"lua",
 			{
@@ -43,6 +70,7 @@ local function setup_lsps()
 		},
 		{ "tex", { filetypes = { "tex" }, cmd = { "texlab" } } },
 		{ "rust", { filetypes = { "rust" }, cmd = { "rust-analyzer" }, root_dir = vim.fs.root(0, { "Cargo.toml" }) } },
+		{ "json", { filetypes = { "json" }, cmd = { "vscode-json-language-server", "--stdio" } } },
 		{
 			"typescript",
 			{

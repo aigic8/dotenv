@@ -16,7 +16,7 @@ local function telescope_config()
 		builtin.grep_string({ search = vim.fn.input("Grep >") })
 	end)
 	vim.keymap.set("n", "<leader>o", function()
-		builtin.lsp_document_symbols({ symbols = { "Function", "Method" } })
+		builtin.lsp_document_symbols({ symbols = { "Function", "Method", "Class", "Struct", "Enum" } })
 	end, {})
 	vim.keymap.set("n", "<leader>q", function()
 		builtin.diagnostics({ severity = vim.diagnostic.severity.ERROR })
@@ -76,6 +76,27 @@ local function jetbrains_config()
 	vim.cmd.colorscheme("jb")
 end
 
+local function catppuccin_config()
+	vim.cmd.colorscheme("catppuccin-mocha")
+end
+
+local function poimandres_config()
+	vim.cmd.colorscheme("poimandres")
+end
+
+local function lualine_config()
+	require("lualine").setup({
+		sections = {
+			lualine_a = { "mode" },
+			lualine_b = { "filename" },
+			lualine_c = { "branch" },
+			lualine_x = { "diagnostics" },
+			lualine_y = { "lsp_status" },
+			lualine_z = { "file_format" },
+		},
+	})
+end
+
 return {
 	{ "theprimeagen/harpoon", dependencies = { "nvim-lua/plenary.nvim" }, config = harpoon_config },
 	{
@@ -89,12 +110,14 @@ return {
 	{ "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" }, config = todo_comments_config },
 	{ "tpope/vim-fugitive", config = vim_fugitive_config },
 	{ "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = { scope = { enabled = true } } },
-
+	{ "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons" }, config = lualine_config },
 	-- themes
 	-- { "loctvl842/monokai-pro.nvim", lazy = false, priority = 1000, config = monokai_pro_config },
 	-- { "vague-theme/vague.nvim", lazy = false, priority = 1000, config = vague_config },
 	-- { "tomasiser/vim-code-dark", lazy = false, priority = 1000, config = code_dark_config },
-	{ "rebelot/kanagawa.nvim", lazy = false, priority = 1000, config = kanagawa_config },
+	-- { "rebelot/kanagawa.nvim", lazy = false, priority = 1000, config = kanagawa_config },
 	-- { "wtfox/jellybeans.nvim", lazy = false, priority = 1000, config = jellybeans_config },
 	-- { "nickkadutskyi/jb.nvim", lazy = false, priority = 1000, opts = {}, config = jetbrains_config },
+	-- { "catppuccin/nvim", name = "catppuccin", priority = 1000, config = catppuccin_config },
+	{ "olivercederborg/poimandres.nvim", lazy = false, priority = 1000, config = poimandres_config },
 }

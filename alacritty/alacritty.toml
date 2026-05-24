@@ -1,5 +1,5 @@
 [general]
-import = [ "./kanagawa-wave.toml" ]
+import = [ "~/.config/alacritty/catppuccin-mocha.toml" ]
 
 [font]
 normal = { family = "JetBrainsMono NFM", style = "Regular" }
