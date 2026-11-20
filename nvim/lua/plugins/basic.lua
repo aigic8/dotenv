@@ -11,7 +11,14 @@ local function telescope_config()
 	local builtin = require("telescope.builtin")
 
 	vim.keymap.set("n", "<leader>p", builtin.find_files, {})
-	vim.keymap.set("n", "<C-p>", builtin.git_files, {})
+	vim.keymap.set("n", "<C-p>", function()
+		builtin.find_files({
+			no_ignore = true,
+			hidden = true,
+			find_command = { "fd", "--no-ignore", "--hidden", "-E", "node_modules", "-E", ".git" },
+		})
+	end, {})
+
 	vim.keymap.set("n", "<leader>gg", function()
 		builtin.grep_string({ search = vim.fn.input("Grep >") })
 	end)
@@ -52,7 +59,7 @@ local function vim_fugitive_config()
 end
 
 local function monokai_pro_config()
-	require("monokai-pro").setup({ filter = "spectrum" }) -- classic | octagon | pro | machine | ristretto | spectrum
+	require("monokai-pro").setup({})
 	vim.cmd.colorscheme("monokai-pro")
 end
 
@@ -77,11 +84,24 @@ local function jetbrains_config()
 end
 
 local function catppuccin_config()
-	vim.cmd.colorscheme("catppuccin-mocha")
+	vim.cmd.colorscheme("catppuccin-nvim")
+	require("catppuccin").setup({
+		flavour = "macchiato", -- latte, frappe, macchiato, mocha
+	})
 end
 
 local function poimandres_config()
 	vim.cmd.colorscheme("poimandres")
+end
+
+local function flume_config()
+	require("flume").setup({})
+	vim.cmd.colorscheme("flume")
+end
+
+local function zenbones_config()
+	vim.g.zenbones_darken_comments = 45
+	vim.cmd.colorscheme("zenbones")
 end
 
 local function lualine_config()
@@ -95,6 +115,21 @@ local function lualine_config()
 			lualine_z = { "file_format" },
 		},
 	})
+end
+
+local function bamboo_config()
+	require("bamboo").setup({
+		style = "multiplex",
+	})
+	require("bamboo").load()
+end
+
+local function luna_theme_config()
+	vim.cmd.colorscheme("luna")
+end
+
+local function tokyo_night_config()
+	vim.cmd.colorscheme("tokyonight-storm")
 end
 
 return {
@@ -111,13 +146,24 @@ return {
 	{ "tpope/vim-fugitive", config = vim_fugitive_config },
 	{ "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = { scope = { enabled = true } } },
 	{ "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons" }, config = lualine_config },
+	{ "jakewvincent/mkdnflow.nvim", opts = { mappings = { MkdnCreateLinkFromClipboard = false } } },
 	-- themes
 	-- { "loctvl842/monokai-pro.nvim", lazy = false, priority = 1000, config = monokai_pro_config },
+	-- { "ribru17/bamboo.nvim", lazy = false, priority = 1000, config = bamboo_config },
+	-- { "folke/tokyonight.nvim", lazy = false, priority = 1000, opts = tokyo_night_config },
+	-- { "wtfox/luna.nvim", lazy = false, priority = 1000, opts = {}, config = luna_theme_config },
+	-- {
+	-- 	"zenbones-theme/zenbones.nvim",
+	-- 	dependencies = "rktjmp/lush.nvim",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	config = zenbones_config,
+	-- },
 	-- { "vague-theme/vague.nvim", lazy = false, priority = 1000, config = vague_config },
 	-- { "tomasiser/vim-code-dark", lazy = false, priority = 1000, config = code_dark_config },
 	-- { "rebelot/kanagawa.nvim", lazy = false, priority = 1000, config = kanagawa_config },
 	-- { "wtfox/jellybeans.nvim", lazy = false, priority = 1000, config = jellybeans_config },
 	-- { "nickkadutskyi/jb.nvim", lazy = false, priority = 1000, opts = {}, config = jetbrains_config },
-	-- { "catppuccin/nvim", name = "catppuccin", priority = 1000, config = catppuccin_config },
-	{ "olivercederborg/poimandres.nvim", lazy = false, priority = 1000, config = poimandres_config },
+	{ "catppuccin/nvim", name = "catppuccin", priority = 1000, config = catppuccin_config },
+	-- { "olivercederborg/poimandres.nvim", lazy = false, priority = 1000, config = poimandres_config },
 }
